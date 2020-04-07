@@ -1,3 +1,4 @@
+import 'controller/states_controller.dart';
 import 'states_api.dart';
 
 /// This type initializes an application.
@@ -13,7 +14,8 @@ class StatesApiChannel extends ApplicationChannel {
   /// This method is invoked prior to [entryPoint] being accessed.
   @override
   Future prepare() async {
-    logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+    logger.onRecord.listen(
+        (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
   }
 
   /// Construct the request channel.
@@ -29,10 +31,11 @@ class StatesApiChannel extends ApplicationChannel {
     // Prefer to use `link` instead of `linkFunction`.
     // See: https://aqueduct.io/docs/http/request_controller/
     router
-      .route("/example")
-      .linkFunction((request) async {
-        return Response.ok({"key": "value"});
-      });
+        // .route("/states/[:uf]")
+        .route('/state')
+        .link(
+          () => StatesController(),
+        );
 
     return router;
   }
