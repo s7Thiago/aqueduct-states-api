@@ -36,4 +36,14 @@ class StatesController extends ResourceController {
   Future<Response> getAllStates() async {
     return Response.ok(_states);
   }
+
+  @Operation.get('uf')
+  Future<Response> getStateByUf() async {
+    // Pegando o parâmetro 'uf' passado na requisição
+    var uf = request.path.variables['uf'];
+    final state = _states.firstWhere((item) => item['uf'] == uf.toUpperCase(),
+        orElse: () => null);
+
+    return Response.ok(state ?? []);
+  }
 }

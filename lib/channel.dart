@@ -31,8 +31,8 @@ class StatesApiChannel extends ApplicationChannel {
     // Prefer to use `link` instead of `linkFunction`.
     // See: https://aqueduct.io/docs/http/request_controller/
     router
-        // .route("/states/[:uf]")
-        .route('/state')
+        .route("/state/[:uf]")
+        // .route('/state')
         .link(
           () => StatesController(),
         );
